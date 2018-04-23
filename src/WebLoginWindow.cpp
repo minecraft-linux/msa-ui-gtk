@@ -9,7 +9,7 @@ WebLoginWindow::WebLoginWindow() {
     spinner.show();
     spinner.start();
 
-    web_view.load_uri("https://example.com");
+    web_view.load_uri("http://localhost/externaltest.html");
     web_view.show();
 
     stack.add(spinner);
