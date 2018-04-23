@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 2.6)
+project(msa-ui-linux-extension C)
+set(MSA_UI_EXTENSION_PROJECT_NAME msa-ui-linux-extension)
+
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(WEBKIT_GTK REQUIRED webkit2gtk-4.0)
+
+add_library(msa-ui-linux-extension SHARED main.cpp)
+target_link_libraries(msa-ui-linux-extension ${WEBKIT_GTK_LIBRARIES})
+target_include_directories(msa-ui-linux-extension PRIVATE ${WEBKIT_GTK_INCLUDE_DIRS})
+set(${MSA_UI_EXTENSION_PROJECT_NAME}_C_FLAGS ${${MSA_UI_EXTENSION_PROJECT_NAME}_C_FLAGS} ${WEBKIT_GTK_CFLAGS})
