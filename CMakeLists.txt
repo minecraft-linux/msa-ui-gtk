@@ -9,7 +9,7 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(GTKMM3 REQUIRED gtkmm-3.0)
 pkg_check_modules(WEBKIT_GTK REQUIRED webkit2gtk-4.0)
 
-add_executable(msa-ui-linux src/main.cpp src/WebLoginWindow.cpp src/WebLoginWindow.h src/WebView.cpp src/WebView.h)
+add_executable(msa-ui-linux src/main.cpp src/WebLoginWindow.cpp src/WebLoginWindow.h src/WebView.cpp src/WebView.h src/IPCServer.cpp src/IPCServer.h)
 target_link_libraries(msa-ui-linux ${GTKMM3_LIBRARIES} ${WEBKIT_GTK_LIBRARIES})
 target_include_directories(msa-ui-linux PRIVATE ${GTKMM3_INCLUDE_DIRS} ${WEBKIT_GTK_INCLUDE_DIRS})
 add_dependencies(msa-ui-linux msa-ui-linux-extension)
