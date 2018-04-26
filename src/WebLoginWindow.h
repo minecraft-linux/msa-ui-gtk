@@ -10,6 +10,8 @@ class WebLoginWindow : public Gtk::Window {
 public:
     WebLoginWindow();
 
+    void on_page_loaded();
+
 private:
     Gtk::Stack stack;
     Gtk::Spinner spinner;

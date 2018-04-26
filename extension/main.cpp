@@ -9,7 +9,7 @@
 
 static void
 page_loaded_callback(WebKitWebPage* web_page, gpointer user_data) {
-    printf("Page loaded\n");
+    IPCClient::instance->on_page_loaded();
 }
 
 static void

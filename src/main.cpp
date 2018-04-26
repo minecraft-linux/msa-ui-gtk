@@ -15,6 +15,7 @@ int main(int argc, char *argv[])
     webkit_web_context_set_web_extensions_initialization_user_data(ctx, variant.gobj());
 
     WebLoginWindow window;
+    ipc_server.set_window(&window);
 
     return app->run(window);
 }

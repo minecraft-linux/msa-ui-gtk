@@ -16,6 +16,10 @@ WebLoginWindow::WebLoginWindow() {
     stack.add(web_view);
     add(stack);
 
-    stack.set_visible_child(web_view);
+    stack.set_visible_child(spinner);
     stack.show();
+}
+
+void WebLoginWindow::on_page_loaded() {
+    stack.set_visible_child(web_view);
 }
