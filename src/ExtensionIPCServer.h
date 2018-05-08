@@ -4,7 +4,7 @@
 
 class WebLoginWindow;
 
-class IPCServer {
+class ExtensionIPCServer {
 
 private:
     static Glib::ustring const introspection_xml;
@@ -21,7 +21,7 @@ private:
                         const Glib::RefPtr<Gio::DBus::MethodInvocation>& invocation);
 
 public:
-    IPCServer();
+    ExtensionIPCServer();
 
     void set_window(WebLoginWindow* window) {
         this->window = window;

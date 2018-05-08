@@ -1,10 +1,10 @@
-#include "IPCServer.h"
+#include "ExtensionIPCServer.h"
 #include <gio/gio.h>
 #include <string>
 #include <giomm.h>
 #include "WebLoginWindow.h"
 
-Glib::ustring const IPCServer::introspection_xml =
+Glib::ustring const ExtensionIPCServer::introspection_xml =
         "<node>\n"
         "   <interface name='io.mrarm.msa.ui.WebExtensionHost'>\n"
         "       <method name='PageLoaded' />\n"
@@ -14,9 +14,9 @@ Glib::ustring const IPCServer::introspection_xml =
         "       <method name='FinalBack' />\n"
         "   </interface>\n"
         "</node>";
-Glib::RefPtr<Gio::DBus::NodeInfo> IPCServer::introspection_data;
+Glib::RefPtr<Gio::DBus::NodeInfo> ExtensionIPCServer::introspection_data;
 
-IPCServer::IPCServer() : interface_vtable(sigc::mem_fun(*this, &IPCServer::on_method_call)) {
+ExtensionIPCServer::ExtensionIPCServer() : interface_vtable(sigc::mem_fun(*this, &ExtensionIPCServer::on_method_call)) {
     connection = Gio::DBus::Connection::get_sync(Gio::DBus::BUS_TYPE_SESSION);
     if (!connection)
         throw std::runtime_error("Failed to get dbus");
@@ -26,7 +26,7 @@ IPCServer::IPCServer() : interface_vtable(sigc::mem_fun(*this, &IPCServer::on_me
                                                    introspection_data->lookup_interface(), interface_vtable);
 }
 
-void IPCServer::on_method_call(const Glib::RefPtr<Gio::DBus::Connection>&, const Glib::ustring&, const Glib::ustring&,
+void ExtensionIPCServer::on_method_call(const Glib::RefPtr<Gio::DBus::Connection>&, const Glib::ustring&, const Glib::ustring&,
                                const Glib::ustring&, const Glib::ustring& method_name,
                                const Glib::VariantContainerBase& parameters,
                                const Glib::RefPtr<Gio::DBus::MethodInvocation>& invocation) {
