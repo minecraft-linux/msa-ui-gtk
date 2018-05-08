@@ -8,6 +8,10 @@ Glib::ustring const IPCServer::introspection_xml =
         "<node>\n"
         "   <interface name='io.mrarm.msa.ui.WebExtensionHost'>\n"
         "       <method name='PageLoaded' />\n"
+        "       <method name='FinalNext'>\n"
+        "           <arg name='data' direction='in' type='a{ss}' />\n"
+        "       </method>\n"
+        "       <method name='FinalBack' />\n"
         "   </interface>\n"
         "</node>";
 Glib::RefPtr<Gio::DBus::NodeInfo> IPCServer::introspection_data;
@@ -29,6 +33,13 @@ void IPCServer::on_method_call(const Glib::RefPtr<Gio::DBus::Connection>&, const
     if (method_name == "PageLoaded") {
         if (window != nullptr)
             window->on_page_loaded();
+    } else if (method_name == "FinalNext") {
+        printf("FinalNext %s\n", parameters.print(true).c_str());
+        if (window != nullptr)
+            window->close();
+    } else if (method_name == "FinalBack") {
+        if (window != nullptr)
+            window->close();
     } else {
         Gio::DBus::Error error(Gio::DBus::Error::UNKNOWN_METHOD, "Method does not exist.");
         invocation->return_error(error);

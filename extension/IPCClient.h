@@ -16,4 +16,8 @@ public:
 
     void on_page_loaded();
 
+    void on_final_next(std::map<std::string, std::string> const& map);
+
+    void on_final_back();
+
 };

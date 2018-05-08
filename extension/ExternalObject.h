@@ -12,6 +12,12 @@ private:
     static JSValueRef js_property(JSContextRef ctx, JSObjectRef func, JSObjectRef obj, size_t argc,
                                   const JSValueRef argv[], JSValueRef* exception);
 
+    static JSValueRef js_final_next(JSContextRef ctx, JSObjectRef func, JSObjectRef obj, size_t argc,
+                                    const JSValueRef argv[], JSValueRef* exception);
+
+    static JSValueRef js_final_back(JSContextRef ctx, JSObjectRef func, JSObjectRef obj, size_t argc,
+                                    const JSValueRef argv[], JSValueRef* exception);
+
     static std::map<std::string, std::string> properties;
 
 

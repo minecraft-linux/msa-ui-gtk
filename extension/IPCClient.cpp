@@ -13,3 +13,18 @@ IPCClient::IPCClient(Glib::ustring const& target) {
 void IPCClient::on_page_loaded() {
     proxy->call("PageLoaded");
 }
+
+void IPCClient::on_final_next(std::map<std::string, std::string> const& map) {
+    using Map = std::map<Glib::ustring, Glib::ustring>;
+    using MapVariant = Glib::Variant<Map>;
+
+    Map cmap;
+    for (auto const& p : map)
+        cmap[p.first] = p.second;
+    MapVariant variant (MapVariant::create(cmap));
+    proxy->call("FinalNext", Glib::VariantContainerBase::create_tuple(variant));
+}
+
+void IPCClient::on_final_back() {
+    proxy->call("FinalBack");
+}
