@@ -8,7 +8,7 @@
 class WebLoginWindow : public Gtk::Window {
 
 public:
-    WebLoginWindow();
+    WebLoginWindow(std::string const& url);
 
     void on_page_loaded();
 

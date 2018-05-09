@@ -1,6 +1,6 @@
 #include "WebLoginWindow.h"
 
-WebLoginWindow::WebLoginWindow() {
+WebLoginWindow::WebLoginWindow(std::string const& url) {
     set_default_size(480, 640);
 
     spinner.set_valign(Gtk::ALIGN_CENTER);
@@ -9,7 +9,7 @@ WebLoginWindow::WebLoginWindow() {
     spinner.show();
     spinner.start();
 
-    web_view.load_uri("http://localhost/externaltest.html");
+    web_view.load_uri(url);
     web_view.show();
 
     stack.add(spinner);

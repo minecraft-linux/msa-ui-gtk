@@ -23,6 +23,10 @@ private:
 public:
     ExtensionIPCServer();
 
+    bool has_window() const {
+        return window != nullptr;
+    }
+
     void set_window(WebLoginWindow* window) {
         this->window = window;
     }
