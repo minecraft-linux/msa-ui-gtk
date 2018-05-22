@@ -26,3 +26,13 @@ WebLoginWindow::WebLoginWindow(std::string const& url) {
 void WebLoginWindow::on_page_loaded() {
     stack.set_visible_child(web_view);
 }
+
+void WebLoginWindow::on_finished(std::map<Glib::ustring, Glib::ustring> map) {
+    result = std::move(map);
+    finished = true;
+    close();
+}
+
+void WebLoginWindow::on_cancelled() {
+    close();
+}

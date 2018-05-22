@@ -34,12 +34,14 @@ void ExtensionIPCServer::on_method_call(const Glib::RefPtr<Gio::DBus::Connection
         if (window != nullptr)
             window->on_page_loaded();
     } else if (method_name == "FinalNext") {
-        printf("FinalNext %s\n", parameters.print(true).c_str());
+        Glib::Variant<std::map<Glib::ustring, Glib::ustring>> params;
+        parameters.get_child(params, 0);
+        printf("FinalNext %s\n", params.print(true).c_str());
         if (window != nullptr)
-            window->close();
+            window->on_finished(params.get());
     } else if (method_name == "FinalBack") {
         if (window != nullptr)
-            window->close();
+            window->on_cancelled();
     } else {
         Gio::DBus::Error error(Gio::DBus::Error::UNKNOWN_METHOD, "Method does not exist.");
         invocation->return_error(error);
