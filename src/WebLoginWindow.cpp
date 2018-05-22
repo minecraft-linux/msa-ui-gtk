@@ -3,6 +3,9 @@
 WebLoginWindow::WebLoginWindow(std::string const& url) {
     set_default_size(480, 640);
 
+    set_modal(true);
+    set_type_hint(Gdk::WINDOW_TYPE_HINT_DIALOG);
+
     spinner.set_valign(Gtk::ALIGN_CENTER);
     spinner.set_halign(Gtk::ALIGN_CENTER);
 
