@@ -13,12 +13,12 @@ LoginIPCService::LoginIPCService(Gtk::Application& app, UIThreadExecutor& execut
     app.hold();
 }
 
-simpleipc::rpc_result LoginIPCService::handle_exit() {
+simpleipc::rpc_json_result LoginIPCService::handle_exit() {
     if (has_app_ref) {
         app.release();
         has_app_ref = false;
     }
-    return simpleipc::rpc_result::response(nullptr);
+    return simpleipc::rpc_json_result::response(nullptr);
 }
 
 void LoginIPCService::handle_open_browser(nlohmann::json const& data, rpc_handler::result_handler const& handler) {
@@ -26,7 +26,7 @@ void LoginIPCService::handle_open_browser(nlohmann::json const& data, rpc_handle
 
     executor.run([this, url, handler]() {
         if (extension_ipc_server.has_window()) {
-            handler(simpleipc::rpc_result::error(100, "A browser operation is already in progress"));
+            handler(simpleipc::rpc_json_result::error(100, "A browser operation is already in progress"));
             return;
         }
         WebLoginWindow* login_window = new WebLoginWindow(url);

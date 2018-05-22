@@ -20,7 +20,7 @@ public:
     LoginIPCService(Gtk::Application& app, UIThreadExecutor& executor, const std::string& path,
                     ExtensionIPCServer& extension_ipc_server);
 
-    simpleipc::rpc_result handle_exit();
+    simpleipc::rpc_json_result handle_exit();
 
     void handle_open_browser(nlohmann::json const& data, rpc_handler::result_handler const& handler);
 
