@@ -21,11 +21,13 @@ JSValueRef ExternalObject::js_property(JSContextRef ctx, JSObjectRef func, JSObj
 JSValueRef ExternalObject::js_final_next(JSContextRef ctx, JSObjectRef func, JSObjectRef obj, size_t argc,
                                          JSValueRef const* argv, JSValueRef* exception) {
     IPCClient::instance->on_final_next(properties);
+    return JSValueMakeUndefined(ctx);
 }
 
 JSValueRef ExternalObject::js_final_back(JSContextRef ctx, JSObjectRef func, JSObjectRef obj, size_t argc,
                                          JSValueRef const* argv, JSValueRef* exception) {
     IPCClient::instance->on_final_back();
+    return JSValueMakeUndefined(ctx);
 }
 
 JSClassRef ExternalObject::get_class_def() {
