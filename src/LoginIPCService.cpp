@@ -3,8 +3,10 @@
 #include "UIThreadExecutor.h"
 
 LoginIPCService::LoginIPCService(Gtk::Application& app, UIThreadExecutor& executor, const std::string& path,
-                                 ExtensionIPCServer& extension_ipc_server) :
-        app(app), executor(executor), service(path), extension_ipc_server(extension_ipc_server) {
+                                 ExtensionIPCServer& extension_ipc_server,
+                                 daemon_utils::shutdown_policy shutdown_policy) :
+        app(app), executor(executor), auto_shutdown_service(path, shutdown_policy),
+        extension_ipc_server(extension_ipc_server) {
     using namespace std::placeholders;
     add_handler("msa/ui/exit", std::bind(&LoginIPCService::handle_exit, this));
     add_handler_async("msa/ui/open_browser", std::bind(&LoginIPCService::handle_open_browser, this, _3, _4));
@@ -13,11 +15,16 @@ LoginIPCService::LoginIPCService(Gtk::Application& app, UIThreadExecutor& execut
     app.hold();
 }
 
-simpleipc::rpc_json_result LoginIPCService::handle_exit() {
+void LoginIPCService::request_stop() {
+    auto_shutdown_service::request_stop();
     if (has_app_ref) {
         app.release();
         has_app_ref = false;
     }
+}
+
+simpleipc::rpc_json_result LoginIPCService::handle_exit() {
+    request_stop();
     return simpleipc::rpc_json_result::response(nullptr);
 }
 
