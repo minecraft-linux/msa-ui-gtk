@@ -1,5 +1,6 @@
 #include "LoginIPCService.h"
 #include "WebLoginWindow.h"
+#include "PickAccountWindow.h"
 #include "UIThreadExecutor.h"
 
 LoginIPCService::LoginIPCService(Gtk::Application& app, UIThreadExecutor& executor, const std::string& path,
@@ -9,6 +10,7 @@ LoginIPCService::LoginIPCService(Gtk::Application& app, UIThreadExecutor& execut
         extension_ipc_server(extension_ipc_server) {
     using namespace std::placeholders;
     add_handler("msa/ui/exit", std::bind(&LoginIPCService::handle_exit, this));
+    add_handler_async("msa/ui/pick_account", std::bind(&LoginIPCService::handle_pick_account, this, _3, _4));
     add_handler_async("msa/ui/open_browser", std::bind(&LoginIPCService::handle_open_browser, this, _3, _4));
 
     has_app_ref = true;
@@ -26,6 +28,20 @@ void LoginIPCService::request_stop() {
 simpleipc::rpc_json_result LoginIPCService::handle_exit() {
     request_stop();
     return simpleipc::rpc_json_result::response(nullptr);
+}
+
+void LoginIPCService::handle_pick_account(nlohmann::json const& data, rpc_handler::result_handler const& handler) {
+    std::vector<PickAccountWindow::Entry> entries;
+    for (auto const& e : data.at("accounts"))
+        entries.push_back({e["cid"], e["username"]});
+
+    executor.run([this, entries, handler]() {
+        PickAccountWindow* pick_window = new PickAccountWindow(entries);
+        pick_window->signal_hide().connect([this, handler, pick_window]() {
+            handler(simpleipc::rpc_json_result::error(-501, "Operation cancelled by user"));
+        });
+        pick_window->show();
+    });
 }
 
 void LoginIPCService::handle_open_browser(nlohmann::json const& data, rpc_handler::result_handler const& handler) {

@@ -24,6 +24,8 @@ public:
 
     simpleipc::rpc_json_result handle_exit();
 
+    void handle_pick_account(nlohmann::json const& data, rpc_handler::result_handler const& handler);
+
     void handle_open_browser(nlohmann::json const& data, rpc_handler::result_handler const& handler);
 
 };
