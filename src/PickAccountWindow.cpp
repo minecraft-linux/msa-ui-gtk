@@ -34,6 +34,7 @@ void PickAccountWindow::on_select_item(Gtk::ListBoxRow* row) {
 
 PickAccountRow::PickAccountRow(PickAccountWindow::Entry const& entry) : cid(entry.cid) {
     image = Glib::RefPtr<Gtk::Image>(new Gtk::Image());
+    image->set_size_request(32, 32);
 
     std::string image_url = "https://storage.live.com/users/0x" + entry.cid + "/myprofile/expressionprofile/profilephoto:UserTileStatic";
     auto image_ptr = image;
