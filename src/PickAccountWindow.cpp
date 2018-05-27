@@ -1,4 +1,5 @@
 #include "PickAccountWindow.h"
+#include "ProfilePictureManager.h"
 
 PickAccountWindow::PickAccountWindow(std::vector<Entry> entries) {
     set_default_size(400, 300);
@@ -32,21 +33,34 @@ void PickAccountWindow::on_select_item(Gtk::ListBoxRow* row) {
 }
 
 PickAccountRow::PickAccountRow(PickAccountWindow::Entry const& entry) : cid(entry.cid) {
+    auto image_data = ProfilePictureManager::instance.downloadImage(entry.cid, "https://storage.live.com/users/0x" + entry.cid + "/myprofile/expressionprofile/profilephoto:UserTileStatic");
+
+    box.set_orientation(Gtk::ORIENTATION_HORIZONTAL);
+    box.set_border_width(8);
+    box.set_spacing(8);
+
+    image.set(image_data);
+    box.pack_start(image, Gtk::PACK_SHRINK);
+
     label.set_text(entry.username);
     label.set_alignment(Gtk::ALIGN_START, Gtk::ALIGN_CENTER);
-    label.set_margin_top(10);
-    label.set_margin_bottom(10);
-    label.set_margin_start(20);
-    label.set_margin_end(20);
-    add(label);
+    box.pack_start(label);
+
+    add(box);
 }
 
 AddAccountRow::AddAccountRow() {
-    label.set_text("Add new account");
+    box.set_orientation(Gtk::ORIENTATION_HORIZONTAL);
+    box.set_border_width(8);
+    box.set_spacing(8);
+
+    icon.set_padding(8, 0);
+    icon.set_from_icon_name("list-add", Gtk::IconSize(24));
+    box.pack_start(icon, Gtk::PACK_SHRINK);
+
+    label.set_text("Add a new account");
     label.set_alignment(Gtk::ALIGN_START, Gtk::ALIGN_CENTER);
-    label.set_margin_top(10);
-    label.set_margin_bottom(10);
-    label.set_margin_start(20);
-    label.set_margin_end(20);
-    add(label);
+    box.pack_start(label);
+
+    add(box);
 }

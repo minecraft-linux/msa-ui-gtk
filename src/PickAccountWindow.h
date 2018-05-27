@@ -3,9 +3,11 @@
 #include <gtkmm/window.h>
 #include <gtkmm/listbox.h>
 #include <gtkmm/label.h>
+#include <gtkmm/image.h>
 #include <gtkmm/button.h>
 #include <gtkmm/scrolledwindow.h>
 #include <gtkmm/headerbar.h>
+#include <gtkmm/box.h>
 #include "WebView.h"
 
 class PickAccountRow;
@@ -16,7 +18,9 @@ public:
     AddAccountRow();
 
 private:
+    Gtk::Box box;
     Gtk::Label label;
+    Gtk::Image icon;
 
 };
 
@@ -65,6 +69,8 @@ public:
     PickAccountRow(PickAccountWindow::Entry const& entry);
 
 private:
+    Gtk::Box box;
     Gtk::Label label;
+    Gtk::Image image;
 
 };
