@@ -60,7 +60,7 @@ AddAccountRow::AddAccountRow() {
     box.set_spacing(8);
 
     icon.set_padding(8, 0);
-    icon.set_from_icon_name("list-add", Gtk::IconSize(24));
+    icon.set_from_icon_name("list-add", Gtk::ICON_SIZE_BUTTON);
     box.pack_start(icon, Gtk::PACK_SHRINK);
 
     label.set_text("Add a new account");
