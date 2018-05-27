@@ -20,6 +20,8 @@ private:
 
     void write_cache_info(std::string const& file, CacheInfo const& info);
 
+    static Glib::RefPtr<Gdk::Pixbuf> crop_circle_image(Glib::RefPtr<Gdk::Pixbuf> img);
+
 public:
     static ProfilePictureManager instance;
 
@@ -34,7 +36,7 @@ public:
         std::string etag;
 
         Glib::RefPtr<Gdk::Pixbuf> image;
-        bool image_cached;
+        bool image_cached = false;
     };
 
     DownloadImageInfo download_image(std::string const& url, std::string const& etag = std::string());

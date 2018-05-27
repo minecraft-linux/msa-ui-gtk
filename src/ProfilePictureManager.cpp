@@ -136,8 +136,18 @@ ProfilePictureManager::DownloadImageInfo ProfilePictureManager::download_image(s
     } catch (Glib::Exception& e) {
     }
     if (response_code == 200)
-        ret.image = loader->get_pixbuf();
+        ret.image = crop_circle_image(loader->get_pixbuf());
     else if (response_code == 304)
         ret.image_cached = true;
     return ret;
+}
+
+Glib::RefPtr<Gdk::Pixbuf> ProfilePictureManager::crop_circle_image(Glib::RefPtr<Gdk::Pixbuf> img) {
+    auto srf = Cairo::ImageSurface::create(Cairo::FORMAT_ARGB32, img->get_width(), img->get_height());
+    auto ctx = Cairo::Context::create(srf);
+    Gdk::Cairo::set_source_pixbuf(ctx, img);
+    ctx->arc(srf->get_width() / 2, srf->get_height() / 2, srf->get_width() / 2, 0, M_PI * 2);
+    ctx->clip();
+    ctx->paint();
+    return Gdk::Pixbuf::create(srf, 0, 0, srf->get_width(), srf->get_height());
 }
