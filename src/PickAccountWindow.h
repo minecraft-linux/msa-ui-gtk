@@ -71,6 +71,6 @@ public:
 private:
     Gtk::Box box;
     Gtk::Label label;
-    Gtk::Image image;
+    Glib::RefPtr<Gtk::Image> image;
 
 };

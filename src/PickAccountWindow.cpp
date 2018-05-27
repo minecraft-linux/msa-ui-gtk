@@ -33,14 +33,19 @@ void PickAccountWindow::on_select_item(Gtk::ListBoxRow* row) {
 }
 
 PickAccountRow::PickAccountRow(PickAccountWindow::Entry const& entry) : cid(entry.cid) {
-    auto image_data = ProfilePictureManager::instance.downloadImage(entry.cid, "https://storage.live.com/users/0x" + entry.cid + "/myprofile/expressionprofile/profilephoto:UserTileStatic");
+    image = Glib::RefPtr<Gtk::Image>(new Gtk::Image());
+
+    std::string image_url = "https://storage.live.com/users/0x" + entry.cid + "/myprofile/expressionprofile/profilephoto:UserTileStatic";
+    auto image_ptr = image;
+    ProfilePictureManager::instance.get_image_async(entry.cid, image_url, [image_ptr](Glib::RefPtr<Gdk::Pixbuf> image_data) {
+        image_ptr->set(image_data);
+    });
 
     box.set_orientation(Gtk::ORIENTATION_HORIZONTAL);
     box.set_border_width(8);
     box.set_spacing(8);
 
-    image.set(image_data);
-    box.pack_start(image, Gtk::PACK_SHRINK);
+    box.pack_start(*image.get(), Gtk::PACK_SHRINK);
 
     label.set_text(entry.username);
     label.set_alignment(Gtk::ALIGN_START, Gtk::ALIGN_CENTER);
