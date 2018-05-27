@@ -38,7 +38,10 @@ void LoginIPCService::handle_pick_account(nlohmann::json const& data, rpc_handle
     executor.run([this, entries, handler]() {
         PickAccountWindow* pick_window = new PickAccountWindow(entries);
         pick_window->signal_hide().connect([this, handler, pick_window]() {
-            handler(simpleipc::rpc_json_result::error(-501, "Operation cancelled by user"));
+            if (pick_window->has_succeeded())
+                handler(simpleipc::rpc_json_result::response({{"cid", pick_window->get_selected_cid()}}));
+            else
+                handler(simpleipc::rpc_json_result::error(-501, "Operation cancelled by user"));
         });
         pick_window->show();
     });

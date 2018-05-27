@@ -20,6 +20,14 @@ public:
 
     PickAccountWindow(std::vector<Entry> entries);
 
+    bool has_succeeded() const {
+        return !result_cid.empty();
+    }
+
+    std::string const& get_selected_cid() const {
+        return result_cid;
+    }
+
 private:
     Gtk::HeaderBar header_bar;
     Gtk::Button header_cancel;
@@ -28,11 +36,19 @@ private:
     Gtk::ScrolledWindow scrolled_window;
     Gtk::ListBox list_box;
 
+    std::string result_cid;
+
+    void on_select_done();
+
+    void on_cancelled();
+
 };
 
 class PickAccountRow : public Gtk::ListBoxRow {
 
 public:
+    const std::string cid;
+
     PickAccountRow(PickAccountWindow::Entry const& entry);
 
 private:
