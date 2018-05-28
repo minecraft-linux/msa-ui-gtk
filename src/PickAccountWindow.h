@@ -66,7 +66,7 @@ class PickAccountRow : public Gtk::ListBoxRow {
 public:
     const std::string cid;
 
-    PickAccountRow(PickAccountWindow::Entry const& entry);
+    PickAccountRow(PickAccountWindow::Entry const& entry, Glib::RefPtr<Gdk::Pixbuf> default_profile_image);
 
 private:
     Gtk::Box box;

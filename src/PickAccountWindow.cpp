@@ -12,8 +12,9 @@ PickAccountWindow::PickAccountWindow(std::vector<Entry> entries) {
     set_titlebar(header_bar);
 
     list_box.set_selection_mode(Gtk::SELECTION_NONE);
+    auto default_profile_image = Gdk::Pixbuf::create_from_resource("/app/default_profile.svg");
     for (auto const& e : entries)
-        list_box.add(*Gtk::manage(new PickAccountRow(e)));
+        list_box.add(*Gtk::manage(new PickAccountRow(e, default_profile_image)));
     list_box.add(add_row);
     scrolled_window.add(list_box);
     add(scrolled_window);
@@ -32,12 +33,14 @@ void PickAccountWindow::on_select_item(Gtk::ListBoxRow* row) {
     close();
 }
 
-PickAccountRow::PickAccountRow(PickAccountWindow::Entry const& entry) : cid(entry.cid) {
+PickAccountRow::PickAccountRow(PickAccountWindow::Entry const& entry, Glib::RefPtr<Gdk::Pixbuf> default_profile_image)
+        : cid(entry.cid) {
     image = Glib::RefPtr<Gtk::Image>(new Gtk::Image());
     image->set_size_request(32, 32);
 
     std::string image_url = "https://storage.live.com/users/0x" + entry.cid + "/myprofile/expressionprofile/profilephoto:UserTileStatic";
     auto image_ptr = image;
+    image->set(default_profile_image);
     ProfilePictureManager::instance.get_image_async(entry.cid, image_url, [image_ptr](Glib::RefPtr<Gdk::Pixbuf> image_data) {
         image_ptr->set(image_data);
     });

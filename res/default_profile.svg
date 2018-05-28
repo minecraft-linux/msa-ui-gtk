@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   id="svg8"
+   version="1.1"
+   viewBox="0 0 8.4666665 8.4666669"
+   height="32"
+   width="32">
+  <defs
+     id="defs2">
+    <clipPath
+       id="clipPath4574"
+       clipPathUnits="userSpaceOnUse">
+      <rect
+         style="fill:#ececec;fill-opacity:1;stroke:none;stroke-width:0.24637136;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="rect4576"
+         width="6.3547249"
+         height="2.6136179"
+         x="-6.9453125"
+         y="291.87369" />
+    </clipPath>
+  </defs>
+  <metadata
+     id="metadata5">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     transform="translate(0,-288.53332)"
+     id="layer1">
+    <circle
+       r="4.2333331"
+       style="stroke-width:0.26674193;fill:#ececec"
+       cy="292.76666"
+       cx="4.2333331"
+       id="path3715" />
+    <g
+       style="stroke-width:0.2;stroke-miterlimit:4;stroke-dasharray:none"
+       transform="matrix(0.89243583,0,0,0.89243583,0.49119496,32.291065)"
+       id="g4549">
+      <circle
+         style="fill:none;stroke:#000000;stroke-width:0.30000001;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path3719"
+         cx="4.1931734"
+         cy="291.0065"
+         r="1.5101417" />
+      <circle
+         transform="matrix(0.74233953,0,0,0.74233953,6.9288935,75.784841)"
+         r="2.8472514"
+         style="fill:none;stroke:#000000;stroke-width:0.40412775;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+         id="path3719-3"
+         cx="-3.6852677"
+         cy="294.87387"
+         clip-path="url(#clipPath4574)" />
+    </g>
+  </g>
+</svg>

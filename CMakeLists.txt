@@ -15,3 +15,9 @@ target_link_libraries(msa-ui-linux simpleipc daemon_server_utils ${GTKMM3_LIBRAR
 target_include_directories(msa-ui-linux PRIVATE ${GTKMM3_INCLUDE_DIRS} ${WEBKIT_GTK_INCLUDE_DIRS} ${CURL_INCLUDE_DIRS})
 add_dependencies(msa-ui-linux msa-ui-linux-extension)
 set(${MSA_LOGIN_LINUX_PROJECT_NAME}_C_FLAGS ${${MSA_LOGIN_LINUX_PROJECT_NAME}_C_FLAGS} ${GTKMM3_CFLAGS_OTHER} ${WEBKIT_GTK_CFLAGS_OTHER})
+
+add_custom_command(
+        OUTPUT "${CMAKE_CURRENT_BINARY_DIR}/resources.c" PRE_BUILD
+        COMMAND glib-compile-resources --target "${CMAKE_CURRENT_BINARY_DIR}/resources.c" --sourcedir "${CMAKE_CURRENT_SOURCE_DIR}/res/" --generate-source "${CMAKE_CURRENT_SOURCE_DIR}/res/resources.xml"
+)
+target_sources(msa-ui-linux PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/resources.c)
