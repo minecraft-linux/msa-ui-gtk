@@ -46,6 +46,7 @@ void LoginIPCService::handle_pick_account(nlohmann::json const& data, rpc_handle
             } else {
                 handler(simpleipc::rpc_json_result::error(-501, "Operation cancelled by user"));
             }
+            delete pick_window;
         });
         pick_window->show();
     });
