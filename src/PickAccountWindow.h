@@ -8,6 +8,7 @@
 #include <gtkmm/scrolledwindow.h>
 #include <gtkmm/headerbar.h>
 #include <gtkmm/box.h>
+#include <gtkmm/menu.h>
 #include "WebView.h"
 
 class PickAccountRow;
@@ -57,7 +58,16 @@ private:
     std::string result_cid;
     bool result_add_account = false;
 
+    Gtk::Menu right_click_menu;
+    Gtk::MenuItem right_click_menu_remove_item;
+    std::string right_click_menu_cid;
+
+    bool on_list_button_press(GdkEventButton* ev);
+
     void on_select_item(Gtk::ListBoxRow* row);
+
+    void on_right_click_menu_remove_activated();
+    void on_right_click_menu_dismissed();
 
 };
 
