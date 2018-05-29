@@ -10,6 +10,10 @@ class WebLoginWindow : public Gtk::Window {
 public:
     WebLoginWindow(std::string const& url);
 
+    guint64 get_page_id() const {
+        return web_view.get_page_id();
+    }
+
     void on_page_loaded();
 
     void on_finished(std::map<Glib::ustring, Glib::ustring> map);

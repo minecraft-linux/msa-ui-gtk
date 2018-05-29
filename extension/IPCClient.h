@@ -14,10 +14,10 @@ public:
 
     IPCClient(Glib::ustring const& target);
 
-    void on_page_loaded();
+    void on_page_loaded(guint64 page_id);
 
-    void on_final_next(std::map<std::string, std::string> const& map);
+    void on_final_next(guint64 page_id, std::map<std::string, std::string> const& map);
 
-    void on_final_back();
+    void on_final_back(guint64 page_id);
 
 };

@@ -55,10 +55,6 @@ void LoginIPCService::handle_open_browser(nlohmann::json const& data, rpc_handle
     std::string url = data["url"];
 
     executor.run([this, url, handler]() {
-        if (extension_ipc_server.has_window()) {
-            handler(simpleipc::rpc_json_result::error(-500, "A browser operation is already in progress"));
-            return;
-        }
         WebLoginWindow* login_window = new WebLoginWindow(url);
         login_window->signal_hide().connect([this, handler, login_window]() {
             if (login_window->has_succeeded()) {
@@ -70,10 +66,10 @@ void LoginIPCService::handle_open_browser(nlohmann::json const& data, rpc_handle
             } else {
                 handler(simpleipc::rpc_json_result::error(-501, "Operation cancelled by user"));
             }
-            extension_ipc_server.set_window(nullptr);
+            extension_ipc_server.remove_window(login_window);
             delete login_window;
         });
-        extension_ipc_server.set_window(login_window);
+        extension_ipc_server.add_window(login_window);
         login_window->show();
     });
 }

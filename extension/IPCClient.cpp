@@ -10,11 +10,11 @@ IPCClient::IPCClient(Glib::ustring const& target) {
                                           "io.mrarm.msa.ui.WebExtensionHost");
 }
 
-void IPCClient::on_page_loaded() {
-    proxy->call("PageLoaded");
+void IPCClient::on_page_loaded(guint64 page_id) {
+    proxy->call("PageLoaded", Glib::VariantContainerBase::create_tuple(Glib::Variant<guint64>::create(page_id)));
 }
 
-void IPCClient::on_final_next(std::map<std::string, std::string> const& map) {
+void IPCClient::on_final_next(guint64 page_id, std::map<std::string, std::string> const& map) {
     using Map = std::map<Glib::ustring, Glib::ustring>;
     using MapVariant = Glib::Variant<Map>;
 
@@ -22,9 +22,9 @@ void IPCClient::on_final_next(std::map<std::string, std::string> const& map) {
     for (auto const& p : map)
         cmap[p.first] = p.second;
     MapVariant variant (MapVariant::create(cmap));
-    proxy->call("FinalNext", Glib::VariantContainerBase::create_tuple(variant));
+    proxy->call("FinalNext", Glib::VariantContainerBase::create_tuple({Glib::Variant<guint64>::create(page_id), variant}));
 }
 
-void IPCClient::on_final_back() {
-    proxy->call("FinalBack");
+void IPCClient::on_final_back(guint64 page_id) {
+    proxy->call("FinalBack", Glib::VariantContainerBase::create_tuple(Glib::Variant<guint64>::create(page_id)));
 }
