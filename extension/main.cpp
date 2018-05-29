@@ -14,6 +14,7 @@ page_loaded_callback(WebKitWebPage* web_page, gpointer user_data) {
 
 static void
 page_created_callback(WebKitWebExtension* extension, WebKitWebPage* web_page, gpointer user_data) {
+    printf("Page created\n");
     auto page_data = new ExternalObjectPageData(webkit_web_page_get_id(web_page));
     g_object_set_data_full(G_OBJECT(web_page), "external-page_data", page_data, [](gpointer data) {
         delete (ExternalObjectPageData*) data;

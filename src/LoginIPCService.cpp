@@ -55,7 +55,7 @@ void LoginIPCService::handle_open_browser(nlohmann::json const& data, rpc_handle
     std::string url = data["url"];
 
     executor.run([this, url, handler]() {
-        WebLoginWindow* login_window = new WebLoginWindow(url);
+        WebLoginWindow* login_window = new WebLoginWindow(extension_ipc_server, url);
         login_window->signal_hide().connect([this, handler, login_window]() {
             if (login_window->has_succeeded()) {
                 nlohmann::json res;

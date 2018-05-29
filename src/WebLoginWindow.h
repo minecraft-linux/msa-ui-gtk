@@ -5,13 +5,15 @@
 #include <gtkmm/stack.h>
 #include "WebView.h"
 
+class ExtensionIPCServer;
+
 class WebLoginWindow : public Gtk::Window {
 
 public:
-    WebLoginWindow(std::string const& url);
+    WebLoginWindow(ExtensionIPCServer& ipc_server, std::string const& url);
 
     guint64 get_page_id() const {
-        return web_view.get_page_id();
+        return web_view->get_page_id();
     }
 
     void on_page_loaded();
@@ -31,7 +33,7 @@ public:
 private:
     Gtk::Stack stack;
     Gtk::Spinner spinner;
-    WebView web_view;
+    Glib::RefPtr<WebView> web_view;
 
     bool finished = false;
     std::map<Glib::ustring, Glib::ustring> result;

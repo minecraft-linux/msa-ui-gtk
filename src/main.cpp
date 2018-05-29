@@ -15,12 +15,6 @@ int main(int argc, char *argv[])
     UIThreadExecutor executor;
     ExtensionIPCServer extension_ipc_server;
 
-    auto ctx = webkit_web_context_get_default();
-    webkit_web_context_set_process_model(ctx, WEBKIT_PROCESS_MODEL_SHARED_SECONDARY_PROCESS);
-    webkit_web_context_set_web_extensions_directory(ctx, "extension/");
-    auto variant = Glib::Variant<Glib::ustring>::create(extension_ipc_server.get_unique_name());
-    webkit_web_context_set_web_extensions_initialization_user_data(ctx, variant.gobj());
-
     std::shared_ptr<LoginIPCService> login_service;
 
     app->signal_handle_local_options().connect([&app, &executor, &login_service, &extension_ipc_server]
