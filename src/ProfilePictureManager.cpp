@@ -127,6 +127,7 @@ ProfilePictureManager::DownloadImageInfo ProfilePictureManager::download_image(s
     CURLcode res = curl_easy_perform(curl);
     long response_code;
     curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &response_code);
+    curl_slist_free_all(headers);
     curl_easy_cleanup(curl);
     if (res != CURLE_OK)
         throw std::runtime_error("curl_easy_perform failed");
