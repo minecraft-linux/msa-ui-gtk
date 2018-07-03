@@ -21,3 +21,5 @@ add_custom_command(
         COMMAND glib-compile-resources --target "${CMAKE_CURRENT_BINARY_DIR}/resources.c" --sourcedir "${CMAKE_CURRENT_SOURCE_DIR}/res/" --generate-source "${CMAKE_CURRENT_SOURCE_DIR}/res/resources.xml"
 )
 target_sources(msa-ui-gtk PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/resources.c)
+
+install(TARGETS msa-ui-gtk RUNTIME DESTINATION bin)
