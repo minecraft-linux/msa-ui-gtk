@@ -5,5 +5,6 @@ set(CPACK_PACKAGE_CONTACT "https://github.com/minecraft-linux/msa-manifest/issue
 set(CPACK_GENERATOR "TGZ;DEB")
 set(CPACK_INSTALL_CMAKE_PROJECTS "${CMAKE_CURRENT_BINARY_DIR};msa-ui-gtk;msa-ui-gtk;/")
 set(CPACK_OUTPUT_CONFIG_FILE CPackConfig.cmake)
+set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6 (>=2.14), libcurl4, libgtkmm-3.0-1v5, libwebkit2gtk-4.0-37")
 
 include(CPack)
