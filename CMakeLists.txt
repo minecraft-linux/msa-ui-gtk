@@ -22,4 +22,5 @@ add_custom_command(
 )
 target_sources(msa-ui-gtk PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/resources.c)
 
-install(TARGETS msa-ui-gtk RUNTIME DESTINATION bin)
+install(TARGETS msa-ui-gtk RUNTIME COMPONENT msa-ui-gtk DESTINATION bin)
+include(CPackSettings.cmake)
